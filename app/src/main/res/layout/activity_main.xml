@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <!-- TableLayout의 미흡한 점을 개선하기 위해 만든 레이아웃, 뷰들이 겹쳐지며, RowSpan이 가능함, TableRow같은 중첩구조가 없음 -->
+
+    <!-- orientation=""을 통해 칸개수, 또는 줄개수를 지정할 수 있음-->
+    <!-- orientation="horizontal"이고 columnCount="3"이면 이 레이아웃의 뷰들은 가로로 최대 3개까지만 추가되고 자동 줄바꿈이 되어 배치됨-->
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:orientation="horizontal"
+        android:columnCount="3">
+
+        <!--기본 width는 wrap_content임-->
+        <Button android:text="1"/>
+        <Button android:text="2"/>
+        <Button android:text="3"/>
+        <Button android:text="4"/>
+        <Button android:text="5"/>
+        <!--셀(뷰)의 사이즈를 조정하여도 다른 셀의 크기에 영향을 주지 않음-->
+        <Button android:text="6" android:layout_width="200dp"/>
+
+        <!-- 칸위치(column)를 지정할 때 순서가 뒤바뀌어도 적용됨-->
+        <Button android:text="7" android:layout_column="1"/>
+        <Button android:text="8" android:layout_column="0"/>
+
+        <!-- 줄위치(row)를 지정하여 배치하는 것도 가능함-->
+        <Button android:text="9" android:layout_row="3" android:layout_column="2"/>
+
+        <!-- 같은 위치에 배치하면 겹쳐서 배치됨(Button 9 와 같은 위치 지정)-->
+        <Button android:text="10" android:layout_row="3" android:layout_column="2"/>
+
+        <!--셀병합(columnSpan)지정 가능하며 기본적으로 공간은 차지하지만 셀(뷰)크기는 바꾸지 않기에 layout_gravity를 통해 사이즈를 조절함-->
+        <Button android:text="11" android:layout_columnSpan="2" android:layout_gravity="fill_horizontal"/>
+
+        <!--row병합도 가능함. columnSpan과 방법은 같음-->
+        <Button android:layout_rowSpan="2" android:layout_gravity="fill_vertical"/>
+
+        <!--row병합 다음줄에 배치되는 셀(뷰)알아보기-->
+        <Button/>
+        <Button android:layout_column="2"/>
+
+    </GridLayout>
+
+
+    <!-- TableLayout처럼 stretchColumn이 없기에 균등분할이 더 어려움-->
+    <!-- API21버전이상에는layout_columnWeight속성으로 LinearLayout의 layout_weight같은 능력의 셀(뷰) 사이즈 지정이 가능함 -->
+    <!-- Phone이 21버전보다 낮으면 layout_columnWeight속성이 무시됨.-->
+
+    <!--orientation="vertical"이면 layout_rowWeight으로 지정-->
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:orientation="horizontal"
+        android:columnCount="2"
+        android:layout_alignParentBottom="true">
+
+        <Button android:layout_columnWeight="1"/>
+        <Button android:layout_columnWeight="1"/>
+        <Button android:layout_columnWeight="1"/>
+
+        <!--중첩 GridLayout배치 가능 , weight을 주더라도 기본적으로 column여려개를 배치하기 위한 공간을 확보하기위해 사이즈가 좀 달라질 수 있음.-->
+        <GridLayout android:layout_columnWeight="1" android:orientation="vertical" android:rowCount="2">
+
+            <Button android:text="1"/>
+            <Button android:text="2"/>
+            <Button android:text="3"/>
+
+        </GridLayout>
+
+    </GridLayout>
+
+
+</RelativeLayout>
